@@ -13,6 +13,15 @@ constants.DATE_REGEX = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
  * Response Codes and messages.
  */
 constants.RESPONSE_KEY = "res";
+constants.ERROR_MESSAGE = "Error";
+constants.USER_DATA = "user_data";
+constants.JW_TOKEN = "jw_token";
+constants.BAD_REQUEST_MESSAGE = "Incorrect Request";
+constants.FORBIDDEN_MESSAGE = "Incorrect Token or token expired.";
+constants.INSUFFICIENT_DATA_MESSAGE = "Insufficient Data";
+constants.INVALID_METHOD_MESSAGE = "Invalid Method";
+constants.INVALID_PATH = "Invalid Path";
+constants.INTERNAL_SERVER_ERROR_MESSAGE = "Internal Server Error";
 constants.BAD_REQUEST_CODE = 400;
 constants.HTTP_NOT_FOUND_CODE = 404;
 constants.FORBIDDEN_REQUEST_CODE = 403;
@@ -23,6 +32,16 @@ constants.HTTP_UNAUTHORIZED_CODE = 401;
 
 constants.RESPONSE_HEADER_KEY = "Content-Type";
 constants.RESPONSE_HEADER_VALUE = "application/json";
+
+/**
+ * DB Constants
+ */
+constants.USERS_COLLECTION = "users";
+constants.USERS_EMAIL = "email";
+constants.USERS_FIRST_NAME = "firstName";
+constants.USERS_NICK_NAME = "nickName";
+constants.USERS_PASSWORD = "password";
+
 /**
  * Exporting the module.
  * @type {{}}

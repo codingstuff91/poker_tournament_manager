@@ -1,4 +1,6 @@
 const validators = require('./../utils/validators');
+const database = require('./../db/mongoose');
+const constants = require('./../utils/constants');
 
 class User {
    /**
@@ -13,7 +15,7 @@ class User {
     */
    constructor(userId, firstName, nickName, email) {
       this._userId = validators.validateString(userId) ? userId : false;
-      this._firstName = validators.validateString(fistName) ? firstName : false;
+      this._firstName = validators.validateString(firstName) ? firstName : false;
       this._nickName = validators.validateString(nickName) ? nickName : false;
       this._email = validators.validateEmail(email) ? email : false;
    }
@@ -25,7 +27,20 @@ class User {
     */
    createUser(password) {
       return new Promise((resolve, reject) => {
-         //TODO: insert the user details to the DB.
+         const userObj = {};
+         userObj[constants.USERS_FIRST_NAME] = this._firstName;
+         userObj[constants.USERS_EMAIL] = this._email;
+         userObj[constants.USERS_NICK_NAME] = this._nickName;
+         userObj[constants.USERS_PASSWORD] = password;
+         database().then(db => {
+            db.collection(constants.USERS_COLLECTION).insertOne(userObj).then(_resultSet => {
+               console.log(_resultSet.insertedId);
+               resolve(_resultSet.insertedId);
+            }).catch(err => {
+               console.error(err);
+               reject(err);
+            });
+         });
       });
    }
 }

@@ -1,5 +1,5 @@
 const express = require('express');
-require('./db/mongoose');
+require('dotenv').config();
 
 const app = express();
 const port = process.env.port || 3000;
@@ -12,5 +12,5 @@ app.use(userRouter);
 app.use(tournamentRouter);
 
 app.listen(port, () => {
-    console.log("server is up on the port " + port);
+   console.log("server is up on the port " + port);
 });
