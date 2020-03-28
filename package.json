@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "env-cmd -f ./config/dev.env nodemon src/index.js"
+    "watch": "env-cmd -f ./config/dev.env nodemon src/index.js -e js,hbs"
   },
   "author": "Matthieu MARTIN",
   "license": "ISC",

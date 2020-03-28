@@ -4,7 +4,7 @@ const mongoose_db = process.env.DATABASE_URL;
 const url = process.env.DATABASE_URL;
 
 function connect(url) {
-   return mongoDb.connect(url).then(client => client.db()).catch(err => {
+   return mongoDb.connect(url,{ useUnifiedTopology: true }).then(client => client.db()).catch(err => {
       console.error(err);
    });
 }
