@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enregistrement utilisateur</title>
+    
+    {{!-- bootstrap --}}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>Pour vous créer un compte remplissez ce formulaire</h1>
+
+        <form action="/users" method="POST">
+        <div class="form-group">
+            <label for="">Votre pseudonyme :</label>
+            <input type="text" class="form-control" name="nickName">
+        </div>
+        <div class="form-group">
+            <label for="">Votre prénom :</label>
+            <input type="text" class="form-control" name="firstName">
+        </div>
+        <div class="form-group">
+            <label for="">Votre adresse mail :</label>
+            <input type="text" class="form-control" name="email">
+        </div> 
+        <div class="form-group">
+            <label for="">Votre mot de passe :</label>
+            <input type="password" class="form-control" name="password">
+        </div>   
+
+            <input type="submit" value="Confirmer" class="btn btn-block btn-success">
+        </form>
+    </div>
+</body>
+</html>
