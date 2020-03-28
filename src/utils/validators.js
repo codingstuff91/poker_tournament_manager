@@ -14,18 +14,6 @@ validator.validateEmail = (email) => {
    return email.match(constants.EMAIL_REGEX) !== null;
 };
 /**
- * Method to validate phone number.
- * @param phoneNumber: the number to be checked.
- * @returns {boolean} true if valid, else false.
- */
-validator.validatePhone = (phoneNumber) => {
-   if (phoneNumber) {
-      return phoneNumber.startsWith(constants.PHONE_NUMBER_PREFIX) && phoneNumber.length === 13;
-   } else {
-      return false;
-   }
-};
-/**
  * Method to validate Number.
  * @param number: the number.
  * @returns {boolean} true if valid, else false.
