@@ -6,8 +6,7 @@ constants.EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 constants.PASSWORD_REGEX = "(?=^.{6,16}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])" +
    "(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?&gt;.&lt;,])(?!.*\\s).*$";
-constants.PHONE_NUMBER_PREFIX = "+91";
-constants.DATE_REGEX = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
+constants.DATE_REGEX = "-[0-9]{2}/[0-9]{2}/[0-9]{4}";
 
 /**
  * Response Codes and messages.
@@ -15,7 +14,7 @@ constants.DATE_REGEX = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
 constants.RESPONSE_KEY = "res";
 constants.ERROR_MESSAGE = "Error";
 constants.USER_DATA = "user_data";
-constants.JW_TOKEN = "jw_token";
+constants.JWT_TOKEN = "jwt_token";
 constants.BAD_REQUEST_MESSAGE = "Incorrect Request";
 constants.FORBIDDEN_MESSAGE = "Incorrect Token or token expired.";
 constants.INSUFFICIENT_DATA_MESSAGE = "Insufficient Data";
