@@ -16,11 +16,10 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.4",
-    "mongoose": "^5.9.3",
+    "jest": "^25.1.0",
     "multer": "^1.4.2",
     "sendgrid": "^5.2.3",
-    "sharp": "^0.25.2",
-    "validator": "^12.2.0"
+    "dotenv": "latest"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
