@@ -35,13 +35,25 @@ constants.USER_DETAILS = "user_details";
 
 
 /**
- * DB Constants
+ * DB User Constants
  */
 constants.USERS_COLLECTION = "users";
 constants.USERS_EMAIL = "email";
 constants.USERS_FIRST_NAME = "firstName";
 constants.USERS_NICK_NAME = "nickName";
 constants.USERS_PASSWORD = "password";
+
+/**
+ * DB Tournament Constants
+ */
+constants.TOURNAMENT_CREATOR = "creator";
+constants.TOURNAMENT_DATE_TIME = "dateTime";
+constants.TOURNAMENT_LOCALIZATION = "localization";
+constants.TOURNAMENT_PLAYERS_MAXIMUM = "playersMaximumNumber";
+constants.TOURNAMENT_BUY_IN = "buyIn";
+constants.TOURNAMENT_DESCRIPTION = "description";
+constants.TOURNAMENT_PLAYERS = "players";
+constants.TOURNAMENT_COMPLETED = "completed";
 
 /**
  * Encryption Constants
