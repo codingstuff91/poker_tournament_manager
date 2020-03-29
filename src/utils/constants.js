@@ -31,6 +31,8 @@ constants.HTTP_UNAUTHORIZED_CODE = 401;
 
 constants.RESPONSE_HEADER_KEY = "Content-Type";
 constants.RESPONSE_HEADER_VALUE = "application/json";
+constants.USER_DETAILS = "user_details";
+
 
 /**
  * DB Constants
@@ -41,6 +43,12 @@ constants.USERS_FIRST_NAME = "firstName";
 constants.USERS_NICK_NAME = "nickName";
 constants.USERS_PASSWORD = "password";
 
+/**
+ * Encryption Constants
+ */
+constants.ENCRYPT_ALGO = "aes256";
+constants.ENCRYPT_ENCODING = "hex";
+constants.ENCRYPTION_KEY_KEY = "ENCRYPTED_KEY";
 /**
  * Exporting the module.
  * @type {{}}
