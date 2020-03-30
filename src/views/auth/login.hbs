@@ -1,0 +1,46 @@
+{{> head }}
+    <div class="container">
+        <h1 class="alert alert-info mt-4">Connexion</h1>
+
+        <form>
+        <div class="form-group">
+            <label for="">Pseudonyme :</label>
+            <input type="text" class="form-control" id="email">
+        </div>
+        <div class="form-group">
+            <label for="">Mot de passe :</label>
+            <input type="password" class="form-control" id="password">
+        </div>
+
+        <input type="submit" class="btn btn-success btn-block" id="submit" value="Connexion">
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script>
+        const form = document.querySelector("form");
+
+        form.addEventListener('submit',(event)=>{
+            alert('click')
+            event.preventDefault();
+            loginUser();
+        })
+
+        function loginUser(){
+
+            const email = document.querySelector("#email").value;
+            const password = document.querySelector("#password").value;
+
+            console.table([email,password])
+
+            axios.post('/users/login',{
+                email,
+                password
+            }).then((response) => {
+                //store the token in localStorage
+                localStorage.setItem('token',response.data.res.jwt_token);
+            })
+        }        
+    </script>
+    
+{{> footer }}

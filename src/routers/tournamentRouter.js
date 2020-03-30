@@ -6,21 +6,21 @@ const router = express.Router();
 /**
  * View to add a tournament
  */
-router.get('/tournament/add',()=>{
+router.get('/tournament',(req,res)=>{
     res.render('tournaments/tournament_create')
 })
 
 /**
  * Store a new tournament
  */
-router.post('/tournament/add', async (req, res) => {
+router.post('/tournament', async (req, res) => {
     res.send('create tournament route');
 });
 
 /**
  * Edit a tournament
  */
-router.patch('/tournament/edit', async (req, res) => {
+router.patch('/tournament', async (req, res) => {
     res.send('Edit tournament route');
 });
 
