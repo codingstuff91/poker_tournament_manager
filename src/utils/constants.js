@@ -46,6 +46,7 @@ constants.USERS_PASSWORD = "password";
 /**
  * DB Tournament Constants
  */
+constants.TOURNAMENTS_COLLECTION = "tournaments";
 constants.TOURNAMENT_CREATOR = "creator";
 constants.TOURNAMENT_DATE_TIME = "dateTime";
 constants.TOURNAMENT_LOCALIZATION = "localization";
