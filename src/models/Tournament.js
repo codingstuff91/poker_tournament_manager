@@ -35,6 +35,7 @@ class Tournament {
          tournamentObj[constants.TOURNAMENT_BUY_IN] = this._buyIn;
          tournamentObj[constants.TOURNAMENT_DESCRIPTION] = description;
          tournamentObj[constants.TOURNAMENT_COMPLETED] = false;
+         
          database().then(db => {
             db.collection(constants.TOURNAMENTS_COLLECTION).insertOne(tournamentObj).then(_resultSet => {
                console.log("Tournament created: " + _resultSet.insertedId);

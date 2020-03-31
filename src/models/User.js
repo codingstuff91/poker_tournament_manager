@@ -34,6 +34,7 @@ class User {
          userObj[constants.USERS_EMAIL] = this._email;
          userObj[constants.USERS_NICK_NAME] = this._nickName;
          userObj[constants.USERS_PASSWORD] = encryptDecrypter.encrypt(password);
+
          database().then(db => {
             db.collection(constants.USERS_COLLECTION).insertOne(userObj).then(_resultSet => {
                console.log(_resultSet.insertedId);
@@ -62,6 +63,7 @@ class User {
          const filterClaus = {};
          filterClaus[constants.USERS_EMAIL] = this._email;
          filterClaus[constants.USERS_PASSWORD] = encryptDecrypter.encrypt(password);
+         
          database().then(db => {
             db.collection(constants.USERS_COLLECTION).find(filterClaus).toArray((err, _result) => {
                if (err) {
