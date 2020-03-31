@@ -10,7 +10,7 @@ const router = express.Router();
  * Method to show the register view
  */
 router.get('/users/register', (req, res) => {
-   res.render('register')
+   res.render('auth/register')
 });
 
 /**
@@ -32,6 +32,13 @@ router.post('/users', async (req, res) => {
       res.status(constants.BAD_REQUEST_CODE).json(responseGenerator.generateResponse(constants.INSUFFICIENT_DATA_MESSAGE));
    }
 });
+
+/**
+ * View for login an user
+ */
+router.get('/users/login', (req,res)=>{
+   res.render('auth/login');
+})
 
 /**
  * Method to handle the login request of a user.
