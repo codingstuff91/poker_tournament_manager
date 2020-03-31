@@ -25,8 +25,8 @@ router.post('/users', async (req, res) => {
       const user = new User(false, firstName, nickName, email);
       user.createUser(password).then((userID) => {
          res.status(constants.HTTP_SUCCESS).json(responseGenerator.generateResponse(userID));
-      }).catch(err => {
-         res.status(constants.INTERNAL_SERVER_ERROR_CODE).json(responseGenerator.generateResponse(constants.ERROR_MESSAGE));
+      }).catch(err => { res.status(constants.INTERNAL_SERVER_ERROR_CODE).json(responseGenerator.generateResponse(constants.ERROR_MESSAGE));
+
       });
    } else {
       res.status(constants.BAD_REQUEST_CODE).json(responseGenerator.generateResponse(constants.INSUFFICIENT_DATA_MESSAGE));

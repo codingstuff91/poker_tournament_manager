@@ -3,4 +3,4 @@ config
 .env
 .idea
 package-lock.json
-./src/keyFiles
+/src/keyFiles/
