@@ -1,6 +1,62 @@
 {{> head }}
     <div class="container">
-        <h1 class="alert alert-info">Creation d'un nouveau tournoi</h1>    
+        <h1 class="alert alert-info mt-4">Creation d'un nouveau tournoi</h1>
+
+        <form action="">
+            <div class="form-group">
+                <label for="">Date et heure du tournoi :</label>
+                <input type="text" class="form-control" name="date_time" id="date_time">
+            </div>
+            <div class="form-group">
+                <label for="">Lieu et adresse du tournoi :</label>
+                <input type="text" class="form-control" name="date_time" id="address">
+            </div>
+            <div class="form-group">
+                <label for="">Nombre maximum de joueurs :</label>
+                <input type="text" class="form-control" name="date_time" id="players_number">
+            </div>
+            <div class="form-group">
+                <label for="">Buy-in (participation) :</label>
+                <input type="text" class="form-control" name="date_time" id="buy_in">
+            </div>
+            <div class="form-group">
+                <label for="">Description du tournoi (structure, recaves) :</label>
+                <textarea class="form-control" id="description" cols="30" rows="5"></textarea>
+            </div>
+
+            <input type="submit" class="btn btn-success btn-block" name="submit" id="submit" value="Confirm">
+        </form>    
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script>
+        const form = document.querySelector("form");
+
+        form.addEventListener('submit',(event)=>{
+            event.preventDefault();
+            createNewTournament();
+        })
+
+        function createNewTournament(){
+
+            const date_time = document.querySelector("#date_time").value;
+            const address = document.querySelector("#address").value;
+            const players_number = document.querySelector("#players_number").value;
+            const buy_in = document.querySelector("#buy_in").value;
+            const description = document.querySelector("#description").value;
+
+            console.table([date_time,address,players_number,buy_in,description])
+
+            axios.post('/tournament',{
+                date_time,
+                address,
+                players_number,
+                buy_in,
+                description
+            }).then((response) => {
+                alert('Nouveau tournoi enregistré')                         
+            })
+        }        
+    </script>
 </body>
 </html>

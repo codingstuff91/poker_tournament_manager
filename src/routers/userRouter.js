@@ -10,7 +10,7 @@ const router = express.Router();
  * Method to show the register view
  */
 router.get('/users/register', (req, res) => {
-   res.render('register')
+   res.render('auth/register')
 });
 
 /**

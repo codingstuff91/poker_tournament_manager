@@ -1,0 +1,54 @@
+{{> head }}
+    <div class="container">
+        <h1>Pour vous créer un compte remplissez ce formulaire</h1>
+
+        <form action="/users" method="POST">
+        <div class="form-group">
+            <label for="">Votre prénom :</label>
+            <input type="text" class="form-control" name="firstName" id="firstName">
+        </div>
+        <div class="form-group">
+            <label for="">Votre pseudonyme :</label>
+            <input type="text" class="form-control" name="nickName" id="nickName">
+        </div>
+        <div class="form-group">
+            <label for="">Votre adresse mail :</label>
+            <input type="text" class="form-control" name="email" id="email">
+        </div> 
+        <div class="form-group">
+            <label for="">Votre mot de passe :</label>
+            <input type="password" class="form-control" name="password" id="password">
+        </div>   
+
+            <input type="submit" value="Confirmer" class="btn btn-block btn-success">
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script>
+        const form = document.querySelector("form");
+
+        form.addEventListener('submit',(event)=>{
+            event.preventDefault();
+            createNewUser();
+        })
+
+        function createNewUser(){
+
+            const firstName = document.querySelector("#firstName").value;
+            const nickName = document.querySelector("#nickName").value;
+            const email = document.querySelector("#email").value;
+            const password = document.querySelector("#password").value;
+
+            axios.post('/users',{
+                firstName,
+                nickName,
+                email,
+                password
+            }).then((response) => {
+                alert('Nouvel utilisateur enregistré')                         
+            })
+        }        
+    </script>
+    
+{{> footer }}
