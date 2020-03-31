@@ -10,6 +10,7 @@ const router = express.Router();
 /**
  * View to add a tournament
  */
+
 router.get('/tournament/', () => {
    res.render('tournaments/tournament_create')
 });
@@ -17,6 +18,7 @@ router.get('/tournament/', () => {
 /**
  * Store a new tournament
  */
+
 router.post('/tournament', auth, async (req, res) => {
    const creator = validator.validateString(req.body[constants.TOURNAMENT_CREATOR]) ? req.body[constants.TOURNAMENT_CREATOR] : false;
    const localization = validator.validateString(req.body[constants.TOURNAMENT_LOCALIZATION]) ? req.body[constants.TOURNAMENT_LOCALIZATION] : false;
@@ -35,11 +37,10 @@ router.post('/tournament', auth, async (req, res) => {
       res.status(constants.BAD_REQUEST_CODE).json(responseGenerator.generateResponse(constants.INSUFFICIENT_DATA_MESSAGE));
    }
 });
-
 /**
  * Edit a tournament
  */
-router.patch('/tournament', async (req, res) => {
+router.patch('/tournament/edit', async (req, res) => {
    res.send('Edit tournament route');
 });
 
