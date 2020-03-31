@@ -3,7 +3,7 @@ const Tournament = require('../models/Tournament');
 const validator = require('./../utils/validators');
 const constants = require('./../utils/constants');
 const responseGenerator = require('./../utils/responseGenerator');
-const auth = require('../middlewares/auth')
+const auth = require('../middlewares/auth');
 
 const router = express.Router();
 
