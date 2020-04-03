@@ -7,13 +7,6 @@ const User = require('../models/User');
 const router = express.Router();
 
 /**
- * Method to show the register view
- */
-router.get('/users/register', (req, res) => {
-   res.render('auth/register')
-});
-
-/**
  * Method to handle the registration of the user.
  */
 router.post('/users', async (req, res) => {
@@ -39,6 +32,7 @@ router.post('/users', async (req, res) => {
 router.post('/users/login', async (req, res) => {
    const email = validator.validateEmail(req.body[constants.USERS_EMAIL]) ? req.body[constants.USERS_EMAIL] : false;
    const password = validator.validateString(req.body[constants.USERS_PASSWORD]) ? req.body[constants.USERS_PASSWORD] : false;
+   
    if (email && password) {
       const user = new User(false, false, false, email);
       user.checkAuthentication(password).then(userData => {

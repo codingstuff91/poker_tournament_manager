@@ -8,13 +8,6 @@ const auth = require('../middlewares/auth');
 const router = express.Router();
 
 /**
- * View to add a tournament
- */
-router.get('/tournament', () => {
-   res.render('tournaments/tournament_create')
-});
-
-/**
  * Store a new tournament
  */
 router.post('/tournament', auth, async (req, res) => {
@@ -23,6 +16,7 @@ router.post('/tournament', auth, async (req, res) => {
    const maxPlayers = validator.validateNumber(req.body[constants.TOURNAMENT_PLAYERS_MAXIMUM]) ? req.body[constants.TOURNAMENT_PLAYERS_MAXIMUM] : false;
    const buyIn = validator.validateNumber(req.body[constants.TOURNAMENT_BUY_IN]) ? req.body[constants.TOURNAMENT_BUY_IN] : false;
    const description = validator.validateString(req.body[constants.TOURNAMENT_DESCRIPTION]) ? req.body[constants.TOURNAMENT_DESCRIPTION] : false;
+   
    if (creator && localization && maxPlayers && buyIn && description) {
       const tournament = new Tournament(creator, localization, maxPlayers, buyIn);
       tournament.create(description).then(tournamentId => {
