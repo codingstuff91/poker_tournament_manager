@@ -52,7 +52,7 @@ class Tournament {
    }
 
    /**
-    * Adding players in tournament.
+    * Adding player in a tournament.
     * @param playersId: The players id.
     * @returns {Promise<unknown>}
     */
@@ -64,6 +64,7 @@ class Tournament {
          setObj[constants.TOURNAMENT_PLAYERS] = {id: playersId, rank: 0};
          const setFinalObj = {};
          setFinalObj[constants.PUSH_OPERATOR] = setObj;
+         
          database().then(db => {
             db.collection(constants.TOURNAMENTS_COLLECTION).update(filterObj, setFinalObj).then(_resultSet => {
                console.log(_resultSet);
