@@ -55,6 +55,7 @@ constants.TOURNAMENT_BUY_IN = "buyIn";
 constants.TOURNAMENT_DESCRIPTION = "description";
 constants.TOURNAMENT_PLAYERS = "players";
 constants.TOURNAMENT_COMPLETED = "completed";
+constants.TOURNAMENT_ID = "tournamentId";
 
 /**
  * Encryption Constants
@@ -62,7 +63,16 @@ constants.TOURNAMENT_COMPLETED = "completed";
 constants.ENCRYPT_ALGO = "aes256";
 constants.ENCRYPT_ENCODING = "hex";
 constants.ENCRYPTION_KEY_KEY = "ENCRYPTED_KEY";
+
 /**
+ * Custom Errors Message
+ */
+NOT_FOUND_TOURNAMNET = "Tournament ID not found"
+
+
+/**
+ * 
+ * 
  * Exporting the module.
  * @type {{}}
  */
