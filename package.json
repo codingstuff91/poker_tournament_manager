@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "server": "nodemon src/server.js -e css,js"
+    "server": "nodemon src/index.js -e css,js"
+  },
+  "jest":{
+    "testEnvironment":"node"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.5.5",
