@@ -1,30 +1,80 @@
-const validators = require('./../utils/validators');
-const database = require('./../db/mongoose');
-const constants = require('./../utils/constants');
+const validators = require("./../utils/validators");
+const database = require("./../db/mongoose");
+const constants = require("./../utils/constants");
+const mongodb = require("mongodb");
 
 class Tournament {
-   /**
-    * _creator
-    * _localization
-    * _maxPlayers
-    * _buyIn
-    * _tournamentID
-    * @param creator
-    * @param localization
-    * @param maxPlayers
-    * @param buyIn
-    * @param tournamentID
-    */
-   constructor(creator, localization, maxPlayers, buyIn, tournamentID) {
-      this._creator = validators.validateString(creator) ? creator : false;
-      this._localization = validators.validateString(localization) ? localization : false;
-      this._maxPlayers = validators.validateNumber(maxPlayers) ? maxPlayers : false;
-      this._buyIn = validators.validateNumber(buyIn) ? buyIn : false;
-      this._tournamentID = validators.validateString(tournamentID) ? tournamentID : false;
-   }
+  /**
+   * _creator
+   * _localization
+   * _maxPlayers
+   * _buyIn
+   * @param creator
+   * @param localization
+   * @param maxPlayers
+   * @param buyIn
+   */
+  constructor(creator, localization, maxPlayers, buyIn) {
+    this._creator = validators.validateString(creator) ? creator : false;
+    this._localization = validators.validateString(localization) ? localization : false;
+    this._maxPlayers = validators.validateNumber(maxPlayers) ? maxPlayers : false;
+    this._buyIn = validators.validateNumber(buyIn) ? buyIn : false;
+  }
+
+  /**
+   * Find a tournament.
+   * @param tournamentId: The objectId of the tournament.
+   * @returns {Promise<String>}
+   */
+  GetTournamentById(tournamentID) {
+    return new Promise((resolve, reject) => {
+      const tournamentIdObj = {
+        _id: new mongodb.ObjectID(tournamentID),
+      };
+      database()
+        .then((db) => {
+          db.collection(constants.TOURNAMENTS_COLLECTION)
+            .findOne(tournamentIdObj)
+            .then((_resultSet) => {
+              let response = _resultSet;
+              resolve(response);
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+          reject(err);
+        });
+    });
+  }
+
+  /**
+   * Delete a tournament.
+   * @param tournamentId: The objectId of the tournament.
+   * @returns {Promise<String>}
+   */
+  DeleteTournament(tournamentID) {
+    return new Promise((resolve, reject) => {
+      const tournamentIdObj = {
+        _id: new mongodb.ObjectID(tournamentID),
+      };
+      database()
+        .then((db) => {
+          db.collection(constants.TOURNAMENTS_COLLECTION)
+            .findOneAndDelete(tournamentIdObj)
+            .then((_resultSet) => {
+              let response = _resultSet;
+              resolve(response);
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+          reject(err);
+        });
+    });
+  }
 
    /**
-    * Method to create the tournament.
+    * Store a new tournament.
     * @param description: The decription of the tournament.
     * @returns {Promise<String>}
     */
@@ -52,7 +102,7 @@ class Tournament {
    }
 
    /**
-    * Adding player in a tournament.
+    * Add player in a tournament.
     * @param playersId: The players id.
     * @returns {Promise<unknown>}
     */
