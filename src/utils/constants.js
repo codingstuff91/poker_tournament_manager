@@ -28,15 +28,20 @@ constants.INTERNAL_SERVER_ERROR_CODE = 500;
 constants.HTTP_SUCCESS = 200;
 constants.HTTP_ACCEPTED_OKAY = 201;
 constants.HTTP_UNAUTHORIZED_CODE = 401;
-
 constants.RESPONSE_HEADER_KEY = "Content-Type";
 constants.RESPONSE_HEADER_VALUE = "application/json";
-constants.USER_DETAILS = "user_details";
+
+
+/**
+ * DB Constants
+ */
+constants.PUSH_OPERATOR = "$push";
 
 
 /**
  * DB User Constants
  */
+constants.USER_DETAILS = "user_details";
 constants.USERS_COLLECTION = "users";
 constants.USERS_EMAIL = "email";
 constants.USERS_FIRST_NAME = "firstName";
@@ -55,7 +60,7 @@ constants.TOURNAMENT_BUY_IN = "buyIn";
 constants.TOURNAMENT_DESCRIPTION = "description";
 constants.TOURNAMENT_PLAYERS = "players";
 constants.TOURNAMENT_COMPLETED = "completed";
-constants.TOURNAMENT_ID = "tournamentId";
+constants.TOURNAMENT_ID = "tournament_id";
 
 /**
  * Encryption Constants
@@ -67,12 +72,9 @@ constants.ENCRYPTION_KEY_KEY = "ENCRYPTED_KEY";
 /**
  * Custom Errors Message
  */
-NOT_FOUND_TOURNAMNET = "Tournament ID not found"
-
+NOT_FOUND_TOURNAMENT = "Tournament ID not found"
 
 /**
- * 
- * 
  * Exporting the module.
  * @type {{}}
  */
