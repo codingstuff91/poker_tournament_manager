@@ -5,15 +5,14 @@
 npm install
 ```
 
-### Compiles and hot-reloads for UI development
-```
-npm run serve
-```
-
-
-### Compiles and hot-reloads for NODE development
+### 1. Compiles and hot-reloads the NODEJS server
 ```
 npm run server
+```
+
+### 2. Compiles the VUEJS frontend ressources and components
+```
+npm run serve
 ```
 
 ### Compiles and minifies for production
