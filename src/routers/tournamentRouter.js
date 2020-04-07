@@ -16,24 +16,10 @@ router.post("/tournament", auth, async (req, res) => {
   )
     ? req.body[constants.TOURNAMENT_CREATOR]
     : false;
-  const localization = validator.validateString(
-    req.body[constants.TOURNAMENT_LOCALIZATION]
-  )
-    ? req.body[constants.TOURNAMENT_LOCALIZATION]
-    : false;
-  const maxPlayers = validator.validateNumber(
-    req.body[constants.TOURNAMENT_PLAYERS_MAXIMUM]
-  )
-    ? req.body[constants.TOURNAMENT_PLAYERS_MAXIMUM]
-    : false;
-  const buyIn = validator.validateNumber(req.body[constants.TOURNAMENT_BUY_IN])
-    ? req.body[constants.TOURNAMENT_BUY_IN]
-    : false;
-  const description = validator.validateString(
-    req.body[constants.TOURNAMENT_DESCRIPTION]
-  )
-    ? req.body[constants.TOURNAMENT_DESCRIPTION]
-    : false;
+  const localization = validator.validateString(req.body[constants.TOURNAMENT_LOCALIZATION]) ? req.body[constants.TOURNAMENT_LOCALIZATION] : false;
+  const maxPlayers = validator.validateNumber(req.body[constants.TOURNAMENT_PLAYERS_MAXIMUM]) ? req.body[constants.TOURNAMENT_PLAYERS_MAXIMUM] : false;
+  const buyIn = validator.validateNumber(req.body[constants.TOURNAMENT_BUY_IN]) ? req.body[constants.TOURNAMENT_BUY_IN] : false;
+  const description = validator.validateString(req.body[constants.TOURNAMENT_DESCRIPTION]) ? req.body[constants.TOURNAMENT_DESCRIPTION] : false;
 
   if (creator && localization && maxPlayers && buyIn && description) {
     const tournament = new Tournament(creator, localization, maxPlayers, buyIn);
@@ -72,9 +58,7 @@ router.patch("/tournament", auth, async (req, res) => {
  */
 router.get("/tournament/:id", async (req, res) => {
   const reqTournamentID = req.params.id;
-  const tournamentID = validator.validateNumber(reqTournamentID)
-    ? reqTournamentID
-    : false;
+  const tournamentID = validator.validateNumber(reqTournamentID) ? reqTournamentID : false;
 
   const tournament = new Tournament();
   tournament
@@ -98,9 +82,7 @@ router.get("/tournament/:id", async (req, res) => {
 router.delete("/tournament/:id", auth, async (req, res) => {
   const reqTournamentID = req.params.id;
   console.log("reqTournamentID", reqTournamentID);
-  const tournamentID = validator.validateNumber(reqTournamentID)
-    ? reqTournamentID
-    : false;
+  const tournamentID = validator.validateNumber(reqTournamentID) ? reqTournamentID : false;
 
   const tournament = new Tournament();
   tournament
