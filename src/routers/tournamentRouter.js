@@ -29,6 +29,27 @@ router.post('/tournament', auth, async (req, res) => {
       res.status(constants.BAD_REQUEST_CODE).json(responseGenerator.generateResponse(constants.INSUFFICIENT_DATA_MESSAGE));
    }
 });
+/**
+ * Register a player to the tournament
+ */
+router.put('/tournament', auth, async (req, res) => {
+   const tournamentId = validator.validateString(req.body[constants.TOURNAMENT_ID]) ? req.body[constants.TOURNAMENT_ID] : false;
+   const playerId = validator.validateString(req.body[constants.TOURNAMENT_PLAYERS]) ? req.body[constants.TOURNAMENT_PLAYERS] : false;
+   
+   if (tournamentId && playerId) {
+      const tournament = new Tournament(false, false, false, false, tournamentId);
+      
+      tournament.addUsers(playerId).then(() => {
+         res.status(constants.HTTP_SUCCESS).json(responseGenerator.generateResponse(true));
+      }).catch(err => {
+         console.error(err);
+         res.status(constants.INTERNAL_SERVER_ERROR_CODE).json(responseGenerator.generateResponse(constants.ERROR_MESSAGE));
+      });
+      
+   } else {
+      res.status(constants.BAD_REQUEST_CODE).json(responseGenerator.generateResponse(constants.INSUFFICIENT_DATA_MESSAGE));
+   }
+});
 
 /**
  * Edit a tournament

@@ -32,6 +32,10 @@ constants.HTTP_UNAUTHORIZED_CODE = 401;
 constants.RESPONSE_HEADER_KEY = "Content-Type";
 constants.RESPONSE_HEADER_VALUE = "application/json";
 constants.USER_DETAILS = "user_details";
+/**
+ * DB Constants
+ */
+constants.PUSH_OPERATOR = "$push";
 
 
 /**
@@ -55,6 +59,7 @@ constants.TOURNAMENT_BUY_IN = "buyIn";
 constants.TOURNAMENT_DESCRIPTION = "description";
 constants.TOURNAMENT_PLAYERS = "players";
 constants.TOURNAMENT_COMPLETED = "completed";
+constants.TOURNAMENT_ID = "tournament_id";
 
 /**
  * Encryption Constants
