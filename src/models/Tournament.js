@@ -1,7 +1,7 @@
 const validators = require("./../utils/validators");
 const database = require("./../db/mongoose");
 const constants = require("./../utils/constants");
-const mongodb = require('mongodb');
+const mongodb = require("mongodb");
 
 class Tournament {
   /**
@@ -16,12 +16,8 @@ class Tournament {
    */
   constructor(creator, localization, maxPlayers, buyIn) {
     this._creator = validators.validateString(creator) ? creator : false;
-    this._localization = validators.validateString(localization)
-      ? localization
-      : false;
-    this._maxPlayers = validators.validateNumber(maxPlayers)
-      ? maxPlayers
-      : false;
+    this._localization = validators.validateString(localization) ? localization : false;
+    this._maxPlayers = validators.validateNumber(maxPlayers) ? maxPlayers : false;
     this._buyIn = validators.validateNumber(buyIn) ? buyIn : false;
   }
 
@@ -58,8 +54,8 @@ class Tournament {
   }
 
   /**
-   * Method to Find the tournament.
-   * @param description: The decription of the tournament.
+   * Find a tournament.
+   * @param tournamentId: The objectId of the tournament.
    * @returns {Promise<String>}
    */
   GetTournamentById(tournamentID) {
@@ -85,7 +81,7 @@ class Tournament {
 
   /**
    * Method to Find the tournament.
-   * @param description: The decription of the tournament.
+   * @param tournamentId: The objectId of the tournament.
    * @returns {Promise<String>}
    */
   DeleteTournament(tournamentID) {
