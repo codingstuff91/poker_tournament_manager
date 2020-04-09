@@ -23,14 +23,8 @@ app.use(tournamentRouter);
 app.use(express.static(publicDirectoryPath))
 
 //body parser middleware
-app.use(bodyParser.urlencoded({
-   extended: true
- }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.get('/test',(req,res)=>{
-   res.send('Hello from the server !')
-})
 
 app.listen(port, () => {
    console.log("server is up on the port " + port);

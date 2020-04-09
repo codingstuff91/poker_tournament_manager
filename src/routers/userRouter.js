@@ -3,8 +3,16 @@ const validator = require('./../utils/validators');
 const constants = require('./../utils/constants');
 const responseGenerator = require('./../utils/responseGenerator');
 const User = require('../models/User');
+const auth = require('../middlewares/auth')
 
 const router = express.Router();
+
+/**
+ * Get the user name to display on the navbar
+ */
+router.get('/user', auth, (req,res)=>{
+   res.send(req.nickName)
+})
 
 /**
  * Method to handle the registration of the user.

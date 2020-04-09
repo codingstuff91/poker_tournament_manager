@@ -8,8 +8,11 @@
             <ul class="right hide-on-med-and-down">
                 
                 <li><router-link to="/">Accueil</router-link></li>
-
-                <li v-if="login"><router-link to="/logout">Deconnexion</router-link></li>
+				
+				<template v-if="login">
+					<li><router-link to="#">Bienvenue {{ nickName }}</router-link></li>
+                	<li><router-link to="/logout">Deconnexion</router-link></li>
+				</template>
 
                 <template v-else>
                     <li><router-link to="/signup">Inscription</router-link></li>
@@ -29,36 +32,49 @@
 
 <script>
 import { log } from 'util'
-import jwt from 'jsonwebtoken'
+
+const axios = require('axios')
+const url = "http://localhost:5000"
 
 export default {
   name: 'Navbar',
   data(){
     return{
-        login : false,
+		login : false,
+		nickName : ''
     }
   },
-  methods : {
-    checkToken(){                
-        if(localStorage.getItem('token') !== null) {
-            this.login = true
-        }
-    }
+  methods :{
+	getUserName(){
+		if(localStorage.getItem('token') !== null) {
+			const token = localStorage.getItem('token');
+			console.log(token);
+			
+			axios.get(url + '/user', {
+				headers : {
+					'Authorization' : 'Bearer ' + token
+				}
+			}).then((response)=>{
+				this.login = true
+				this.nickName = response.data
+			})
+		}
+	} 
   },
-  mounted(){
+  async mounted(){
 
-  this.checkToken();
-    
-  var options = {
-      hover : true,
-      inDuration : 150,
-      outDuration : 300
+	await this.getUserName();
+		
+	var options = {
+		hover : true,
+		inDuration : 150,
+		outDuration : 300
+	}
 
-  }
-  document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.sidenav');
-      var instances = M.Sidenav.init(elems, options);
-  });
+	document.addEventListener('DOMContentLoaded', function() {
+		var elems = document.querySelectorAll('.sidenav');
+		var instances = M.Sidenav.init(elems, options);
+	});
   }
 }
 </script>

@@ -14,15 +14,14 @@ const validator = require('./../utils/validators');
  */
 const auth = async (req, res, next) => {
    try {
-      const token = req.headers('Authorization');
-      console.log(req.headers);
-      
+      const token = req.headers.authorization;
       const userToken = token.replace("Bearer ", "");
       const keyFile = fs.readFileSync(path.resolve(__dirname + "/../keyFiles/second.crt"), 'utf8');
       const decodedToken = jwt.verify(userToken, keyFile);
-      
-      console.log(decodeToken);
 
+      req.nickName = decodedToken.nickName
+      req.user_id = decodedToken._id
+   
       if (validator.validateUndefined(decodedToken)) {
          next();
       }
@@ -36,3 +35,4 @@ const auth = async (req, res, next) => {
  * @type {auth}
  */
 module.exports = auth;
+  
