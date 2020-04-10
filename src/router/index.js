@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Register from '../views/Register'
 import Login from '../views/Login'
+import createTournament from '../views/createTournament'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path : '/login',
     name : 'Login',
     component : Login
+  },
+  {
+    path : '/newTournament',
+    name : 'createTournament',
+    component : createTournament
   }
 ]
 

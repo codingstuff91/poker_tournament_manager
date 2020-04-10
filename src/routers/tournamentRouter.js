@@ -10,12 +10,8 @@ const router = express.Router();
 /**
  * Store a new tournament
  */
-router.post("/tournament", auth, async (req, res) => {
-  const creator = validator.validateString(
-    req.body[constants.TOURNAMENT_CREATOR]
-  )
-    ? req.body[constants.TOURNAMENT_CREATOR]
-    : false;
+router.post("/tournament", async (req, res) => {
+  const creator = validator.validateString(req.body[constants.TOURNAMENT_CREATOR]) ? req.body[constants.TOURNAMENT_CREATOR] : false;
   const localization = validator.validateString(req.body[constants.TOURNAMENT_LOCALIZATION]) ? req.body[constants.TOURNAMENT_LOCALIZATION] : false;
   const maxPlayers = validator.validateNumber(req.body[constants.TOURNAMENT_PLAYERS_MAXIMUM]) ? req.body[constants.TOURNAMENT_PLAYERS_MAXIMUM] : false;
   const buyIn = validator.validateNumber(req.body[constants.TOURNAMENT_BUY_IN]) ? req.body[constants.TOURNAMENT_BUY_IN] : false;
