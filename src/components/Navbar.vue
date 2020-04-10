@@ -1,31 +1,36 @@
 <template>
     <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <nav>
         <div class="nav-wrapper">
             <a href="#!" class="brand-logo">Poker Manager</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-                
-                <li><router-link to="/">Accueil</router-link></li>
-				
-				<template v-if="login">
-					<li><router-link to="#">Bienvenue {{ nickName }}</router-link></li>
-                	<li><router-link to="/logout">Deconnexion</router-link></li>
-				</template>
+            <ul class="right hide-on-med-and-down">  			
+              <template v-if="login">
+                <li><router-link to="#"><i class="material-icons left">date_range</i> Tournois à venir </router-link></li>
+                <li><router-link to="#"><i class="material-icons left">insert_chart</i> Tournois terminés </router-link></li>
+                <li><router-link to="#"><i class="material-icons left">account_circle</i> {{ nickName }}</router-link></li>
+                <li><router-link to="/logout"><i class="material-icons left">lock</i> Se deconnecter</router-link></li>
+              </template>
 
-                <template v-else>
-                    <li><router-link to="/signup">Inscription</router-link></li>
-                    <li><router-link to="/login">Connexion</router-link></li>
-                </template>
+              <template v-else>
+                  <li><router-link to="/signup"><i class="material-icons left">person_add</i> Inscription</router-link></li>
+                  <li><router-link to="/login"><i class="material-icons left">lock_open</i> Connexion</router-link></li>
+              </template>
             </ul>
         </div>
     </nav>
 
   <ul class="sidenav" id="mobile-demo">
-    <li><router-link to="/">Accueil</router-link></li>
-    <li><router-link to="/signup">Inscription</router-link></li>
-    <li><router-link to="/login">Connexion</router-link></li>
+    <template v-if="login">
+		<li><router-link to="#"><i class="material-icons left">account_circle</i> Bienvenue {{ nickName }}</router-link></li>
+		<li><router-link to="#"><i class="material-icons left">date_range</i> Tournois à venir </router-link></li>
+		<li><router-link to="#"><i class="material-icons left">insert_chart</i> Tournois terminés </router-link></li>
+		<li><router-link to="/logout"><i class="material-icons left">lock</i> Se deconnecter</router-link></li>
+    </template>
+    <template v-else>
+		<li><router-link to="/signup"><i class="material-icons left">person_add</i> Inscription</router-link></li>
+		<li><router-link to="/login"><i class="material-icons left">lock_open</i> Connexion</router-link></li>
+    </template>
   </ul>
   </div>
 </template>
@@ -45,21 +50,21 @@ export default {
     }
   },
   methods :{
-	getUserName(){
-		if(localStorage.getItem('token') !== null) {
-			const token = localStorage.getItem('token');
-			console.log(token);
-			
-			axios.get(url + '/user', {
-				headers : {
-					'Authorization' : 'Bearer ' + token
-				}
-			}).then((response)=>{
-				this.login = true
-				this.nickName = response.data
-			})
-		}
-	} 
+    getUserName(){
+      if(localStorage.getItem('token') !== null) {
+        const token = localStorage.getItem('token');
+        console.log(token);
+        
+        axios.get(url + '/user', {
+          headers : {
+            'Authorization' : 'Bearer ' + token
+          }
+        }).then((response)=>{
+          this.login = true
+          this.nickName = response.data
+        })
+      }
+    } 
   },
   async mounted(){
 
@@ -77,4 +82,20 @@ export default {
 	});
   }
 }
-</script>
+</script>  
+<style scoped>
+	@media screen and (min-width: 1000px){
+		.brand-logo {
+			left : 5%;
+		}
+		.nav-wrapper{
+			background-color : #42970a;
+		}
+	}
+
+	@media screen and (min-width: 200px){
+		.nav-wrapper{
+			background-color : #42970a;
+		}
+	}	
+</style>
