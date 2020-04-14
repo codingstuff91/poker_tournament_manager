@@ -11,7 +11,7 @@ const router = express.Router();
  * Get the user name to display on the navbar
  */
 router.get('/user', auth, (req,res)=>{
-   res.send(req.nickName)
+   res.send(req.user)
 })
 
 /**

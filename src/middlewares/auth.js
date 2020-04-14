@@ -19,8 +19,10 @@ const auth = async (req, res, next) => {
       const keyFile = fs.readFileSync(path.resolve(__dirname + "/../keyFiles/second.crt"), 'utf8');
       const decodedToken = jwt.verify(userToken, keyFile);
 
-      req.nickName = decodedToken.nickName
-      req.user_id = decodedToken._id
+      req.user = {
+         nickName : decodedToken.nickName,
+         localization : decodedToken.localization
+      }
    
       if (validator.validateUndefined(decodedToken)) {
          next();

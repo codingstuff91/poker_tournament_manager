@@ -11,14 +11,20 @@ const router = express.Router();
  * Store a new tournament
  */
 router.post("/tournament", async (req, res) => {
+  console.log(req.body);
+
   const creator = validator.validateString(req.body[constants.TOURNAMENT_CREATOR]) ? req.body[constants.TOURNAMENT_CREATOR] : false;
+  const dateTime = req.body[constants.TOURNAMENT_DATE_TIME];
   const localization = validator.validateString(req.body[constants.TOURNAMENT_LOCALIZATION]) ? req.body[constants.TOURNAMENT_LOCALIZATION] : false;
   const maxPlayers = validator.validateNumber(req.body[constants.TOURNAMENT_PLAYERS_MAXIMUM]) ? req.body[constants.TOURNAMENT_PLAYERS_MAXIMUM] : false;
   const buyIn = validator.validateNumber(req.body[constants.TOURNAMENT_BUY_IN]) ? req.body[constants.TOURNAMENT_BUY_IN] : false;
   const description = validator.validateString(req.body[constants.TOURNAMENT_DESCRIPTION]) ? req.body[constants.TOURNAMENT_DESCRIPTION] : false;
+  const rebuy = req.body[constants.TOURNAMENT_REBUY]
+  const levelDuration = validator.validateNumber(req.body[constants.TOURNAMENT_LEVEL_DURATION]) ? req.body[constants.TOURNAMENT_LEVEL_DURATION] : false;
 
-  if (creator && localization && maxPlayers && buyIn && description) {
-    const tournament = new Tournament(creator, localization, maxPlayers, buyIn);
+  if (creator && localization && maxPlayers && buyIn && description && rebuy && levelDuration) {
+    const tournament = new Tournament(creator, dateTime, localization, maxPlayers, buyIn, rebuy, levelDuration);
+
     tournament
       .create(description)
       .then((tournamentId) => {

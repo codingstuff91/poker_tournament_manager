@@ -61,25 +61,24 @@ export default {
           }
         }).then((response)=>{
           this.login = true
-          this.nickName = response.data
+          this.nickName = response.data.nickName
         })
       }
     } 
   },
   async mounted(){
+    await this.getUserName();
+      
+    var options = {
+      hover : true,
+      inDuration : 150,
+      outDuration : 300
+    }
 
-	await this.getUserName();
-		
-	var options = {
-		hover : true,
-		inDuration : 150,
-		outDuration : 300
-	}
-
-	document.addEventListener('DOMContentLoaded', function() {
-		var elems = document.querySelectorAll('.sidenav');
-		var instances = M.Sidenav.init(elems, options);
-	});
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.sidenav');
+      var instances = M.Sidenav.init(elems, options);
+    });
   }
 }
 </script>  

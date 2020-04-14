@@ -61,6 +61,8 @@ constants.TOURNAMENT_DESCRIPTION = "description";
 constants.TOURNAMENT_PLAYERS = "players";
 constants.TOURNAMENT_COMPLETED = "completed";
 constants.TOURNAMENT_ID = "tournament_id";
+constants.TOURNAMENT_REBUY = "rebuy";
+constants.TOURNAMENT_LEVEL_DURATION = "level_duration";
 
 /**
  * Encryption Constants
