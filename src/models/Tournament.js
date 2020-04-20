@@ -61,6 +61,27 @@ class Tournament {
   }
 
   /**
+   * Get list of incoming tournaments
+   */
+  getNextTournaments(){
+    return new Promise((resolve,reject)=>{
+      database()
+      .then((db)=>{
+        db.collection(constants.TOURNAMENTS_COLLECTION)
+        .find({completed : false}).toArray((error, results)=>{
+          console.log(results)
+          resolve(results)
+        })
+      })
+    })
+  }
+
+  /**
+   * Get list of finished tournaments
+   */
+
+
+  /**
    * Find a tournament.
    * @param tournamentId: The objectId of the tournament.
    * @returns {Promise<String>}

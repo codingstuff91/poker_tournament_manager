@@ -20,19 +20,6 @@
         <p class="left-align">Permet de suivre l'ensemble de ses résultats personnels aux différents tournois qui ont eu lieu</p>
       </div>
     </div>
-    
-    <div class="row">
-      <div class="col s12 m6 l6 xl6">
-        <img src="../assets/poker-chips.png" class="responsive-img">
-        <h5>Tournois à venir</h5>
-        <p>Voici la liste des tournois ou vous pouvez vous inscrire</p>
-      </div>
-      <div class="col s12 m6 l6 xl6">
-        <img src="../assets/classment-tournoi.jpg" class="responsive-img">
-        <h5>Tournois terminés</h5>
-        <p>Voici la liste des tournois qui ont eu lieu. Cliquez sur un tournoi pour voir le classement</p>
-      </div>
-    </div>
   </div>
 </template>
 

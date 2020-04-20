@@ -7,10 +7,8 @@
             <ul class="right hide-on-med-and-down">  			
               <template v-if="login">
                 <li><router-link to="/newTournament"><i class="material-icons left">add_circle</i> Nouveau tournoi</router-link></li>
-                <li><router-link to="#"><i class="material-icons left">date_range</i> Tournois à venir </router-link></li>
-                <li><router-link to="#"><i class="material-icons left">insert_chart</i> Tournois terminés </router-link></li>
+                <li><router-link to="/tournaments"><i class="material-icons left">insert_chart</i> Liste des Tournois</router-link></li>
                 <li><router-link to="#"><i class="material-icons left">account_circle</i> {{ nickName }}</router-link></li>
-                <li><router-link to="/logout"><i class="material-icons left">lock</i> Se deconnecter</router-link></li>
               </template>
 
               <template v-else>
@@ -23,14 +21,13 @@
 
   <ul class="sidenav" id="mobile-demo">
     <template v-if="login">
-		<li><router-link to="#"><i class="material-icons left">account_circle</i> Bienvenue {{ nickName }}</router-link></li>
-		<li><router-link to="#"><i class="material-icons left">date_range</i> Tournois à venir </router-link></li>
-		<li><router-link to="#"><i class="material-icons left">insert_chart</i> Tournois terminés </router-link></li>
-		<li><router-link to="/logout"><i class="material-icons left">lock</i> Se deconnecter</router-link></li>
+      <li><router-link to="#"><i class="material-icons left">account_circle</i> Bienvenue {{ nickName }}</router-link></li>
+      <li><router-link to="/newTournament"><i class="material-icons left">add_circle</i> Nouveau tournoi</router-link></li>
+      <li><router-link to="/tournaments"><i class="material-icons left">insert_chart</i> Liste des Tournois</router-link></li>
     </template>
     <template v-else>
-		<li><router-link to="/signup"><i class="material-icons left">person_add</i> Inscription</router-link></li>
-		<li><router-link to="/login"><i class="material-icons left">lock_open</i> Connexion</router-link></li>
+      <li><router-link to="/signup"><i class="material-icons left">person_add</i> Inscription</router-link></li>
+      <li><router-link to="/login"><i class="material-icons left">lock_open</i> Connexion</router-link></li>
     </template>
   </ul>
   </div>

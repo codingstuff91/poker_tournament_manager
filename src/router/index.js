@@ -5,6 +5,8 @@ import About from '../views/About.vue'
 import Register from '../views/Register'
 import Login from '../views/Login'
 import createTournament from '../views/createTournament'
+import tournaments from '../views/Tournaments'
+import tournament from '../views/Tournament'
 
 Vue.use(VueRouter)
 
@@ -33,6 +35,16 @@ const routes = [
     path : '/newTournament',
     name : 'createTournament',
     component : createTournament
+  },
+  {
+    path : '/tournaments',
+    name : 'tournaments',
+    component : tournaments
+  },
+  {
+    path : '/tournament/:id',
+    name : 'tournament',
+    component : tournament
   }
 ]
 

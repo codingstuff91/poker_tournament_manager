@@ -47,6 +47,17 @@ router.post("/tournament", async (req, res) => {
       );
   }
 });
+
+/**
+ * Get the list of next and finished tournaments
+ */
+router.get('/tournaments',(req,res)=>{
+  const tournament = new Tournament();
+  tournament.getNextTournaments().then((results)=>{
+    res.status(200).json(responseGenerator.generateResponse(results))
+  })
+})
+
 /**
  * Register a player to the tournament
  */
