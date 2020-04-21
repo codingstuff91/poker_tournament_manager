@@ -61,14 +61,14 @@ router.get('/tournaments',(req,res)=>{
 /**
  * Register a player to the tournament
  */
-router.put('/tournament', auth, async (req, res) => {
-   const tournamentId = validator.validateString(req.body[constants.TOURNAMENT_ID]) ? req.body[constants.TOURNAMENT_ID] : false;
+router.put('/tournament/:id', async (req, res) => {
+  const reqTournamentID = req.params.id;
    const playerId = validator.validateString(req.body[constants.TOURNAMENT_PLAYERS]) ? req.body[constants.TOURNAMENT_PLAYERS] : false;
    
-   if (tournamentId && playerId) {
-      const tournament = new Tournament(false, false, false, false, tournamentId);
+   if (reqTournamentID && playerId) {
+      const tournament = new Tournament();
       
-      tournament.addUsers(playerId).then(() => {
+      tournament.addUsers(reqTournamentID, playerId).then(() => {
          res.status(constants.HTTP_SUCCESS).json(responseGenerator.generateResponse(true));
       }).catch(err => {
          console.error(err);
@@ -92,7 +92,6 @@ router.patch("/tournament", auth, async (req, res) => {
  */
 router.get("/tournament/:id", async (req, res) => {
   const reqTournamentID = req.params.id;
-  const tournamentID = validator.validateNumber(reqTournamentID) ? reqTournamentID : false;
 
   const tournament = new Tournament();
   tournament

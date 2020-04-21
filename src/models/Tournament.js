@@ -20,14 +20,28 @@ class Tournament {
    * @param rebuy
    * @param levelDuration
    */
-  constructor(creator, dateTime, localization, maxPlayers, buyIn, rebuy, levelDuration) {
+  constructor(
+    creator,
+    dateTime,
+    localization,
+    maxPlayers,
+    buyIn,
+    rebuy,
+    levelDuration
+  ) {
     this._creator = validators.validateString(creator) ? creator : false;
     this._dateTime = dateTime;
-    this._localization = validators.validateString(localization) ? localization : false;
-    this._maxPlayers = validators.validateNumber(maxPlayers) ? maxPlayers : false;
+    this._localization = validators.validateString(localization)
+      ? localization
+      : false;
+    this._maxPlayers = validators.validateNumber(maxPlayers)
+      ? maxPlayers
+      : false;
     this._buyIn = validators.validateNumber(buyIn) ? buyIn : false;
     this._rebuy = validators.validateString(rebuy) ? rebuy : false;
-    this._levelDuration = validators.validateNumber(levelDuration) ? levelDuration : false;
+    this._levelDuration = validators.validateNumber(levelDuration)
+      ? levelDuration
+      : false;
   }
 
   /**
@@ -36,50 +50,53 @@ class Tournament {
    * @returns {Promise<String>}
    */
   create(description) {
-     return new Promise((resolve, reject) => {
-        const tournamentObj = {};
-        tournamentObj[constants.TOURNAMENT_CREATOR] = this._creator;
-        tournamentObj[constants.TOURNAMENT_DATE_TIME] = this._dateTime;
-        tournamentObj[constants.TOURNAMENT_LOCALIZATION] = this._localization;
-        tournamentObj[constants.TOURNAMENT_PLAYERS_MAXIMUM] = this._maxPlayers;
-        tournamentObj[constants.TOURNAMENT_BUY_IN] = this._buyIn;
-        tournamentObj[constants.TOURNAMENT_DESCRIPTION] = description;
-        tournamentObj[constants.TOURNAMENT_COMPLETED] = false;
-        tournamentObj[constants.TOURNAMENT_REBUY] = this._rebuy;
-        tournamentObj[constants.TOURNAMENT_LEVEL_DURATION] = this._levelDuration;
+    return new Promise((resolve, reject) => {
+      const tournamentObj = {};
+      tournamentObj[constants.TOURNAMENT_CREATOR] = this._creator;
+      tournamentObj[constants.TOURNAMENT_DATE_TIME] = this._dateTime;
+      tournamentObj[constants.TOURNAMENT_LOCALIZATION] = this._localization;
+      tournamentObj[constants.TOURNAMENT_PLAYERS_MAXIMUM] = this._maxPlayers;
+      tournamentObj[constants.TOURNAMENT_BUY_IN] = this._buyIn;
+      tournamentObj[constants.TOURNAMENT_DESCRIPTION] = description;
+      tournamentObj[constants.TOURNAMENT_COMPLETED] = false;
+      tournamentObj[constants.TOURNAMENT_REBUY] = this._rebuy;
+      tournamentObj[constants.TOURNAMENT_LEVEL_DURATION] = this._levelDuration;
 
-        database().then(db => {
-           db.collection(constants.TOURNAMENTS_COLLECTION).insertOne(tournamentObj).then(_resultSet => {
+      database()
+        .then((db) => {
+          db.collection(constants.TOURNAMENTS_COLLECTION)
+            .insertOne(tournamentObj)
+            .then((_resultSet) => {
               console.log("Tournament created: " + _resultSet.insertedId);
               resolve(_resultSet.insertedId);
-           });
-        }).catch(err => {
-           console.error(err);
-           reject(err);
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+          reject(err);
         });
-     });
+    });
   }
 
   /**
    * Get list of incoming tournaments
    */
-  getNextTournaments(){
-    return new Promise((resolve,reject)=>{
-      database()
-      .then((db)=>{
+  getNextTournaments() {
+    return new Promise((resolve, reject) => {
+      database().then((db) => {
         db.collection(constants.TOURNAMENTS_COLLECTION)
-        .find({completed : false}).toArray((error, results)=>{
-          console.log(results)
-          resolve(results)
-        })
-      })
-    })
+          .find({ completed: false })
+          .toArray((error, results) => {
+            console.log(results);
+            resolve(results);
+          });
+      });
+    });
   }
 
   /**
    * Get list of finished tournaments
    */
-
 
   /**
    * Find a tournament.
@@ -133,31 +150,41 @@ class Tournament {
     });
   }
 
-
-   /**
-    * Add player in a tournament.
-    * @param playersId: The players id.
-    * @returns {Promise<unknown>}
-    */
-   addUsers(playersId) {
-      return new Promise((resolve, reject) => {
-         const filterObj = {};
-         filterObj._id = this._tournamentID;
-         const setObj = {};
-         setObj[constants.TOURNAMENT_PLAYERS] = {id: playersId, rank: 0};
-         const setFinalObj = {};
-         setFinalObj[constants.PUSH_OPERATOR] = setObj;
-         
-         database().then(db => {
-            db.collection(constants.TOURNAMENTS_COLLECTION).update(filterObj, setFinalObj).then(_resultSet => {
-               console.log(_resultSet);
+  /**
+   * Add player in a tournament.
+   * @param playersId: The players id.
+   * @returns {Promise<unknown>}
+   */
+  addUsers(tournamentID, playersId) {
+    return new Promise((resolve, reject) => {
+      const filterObj = {};
+      filterObj._id = new mongodb.ObjectID(tournamentID);
+      // const setObj = {};
+      // setObj[constants.TOURNAMENT_PLAYERS] = { id: playersId, rank: 0 };
+      // const setFinalObj = {};
+      //setFinalObj[constants.PUSH_OPERATOR] = setObj;
+      console.log("s", filterObj);
+      //console.log("sdd", setObj);
+      database()
+        .then((db) => {
+          db.collection(constants.TOURNAMENTS_COLLECTION)
+            .updateOne(filterObj, {
+              $push: {
+                playersRegistered: {
+                  $each: [{ id: playersId, rank: 0 }],
+                },
+              },
+            })
+            .then((_resultSet) => {
+              console.log(_resultSet);
             });
-         }).catch(err => {
-            console.error(err);
-            reject(err);
-         });
-      });
-   }
+        })
+        .catch((err) => {
+          console.error(err);
+          reject(err);
+        });
+    });
+  }
 }
 
 /**
