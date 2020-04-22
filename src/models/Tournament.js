@@ -49,7 +49,9 @@ class Tournament {
         tournamentObj[constants.TOURNAMENT_LEVEL_DURATION] = this._levelDuration;
 
         database().then(db => {
-           db.collection(constants.TOURNAMENTS_COLLECTION).insertOne(tournamentObj).then(_resultSet => {
+           db.collection(constants.TOURNAMENTS_COLLECTION)
+              .insertOne(tournamentObj)
+              .then(_resultSet => {
               console.log("Tournament created: " + _resultSet.insertedId);
               resolve(_resultSet.insertedId);
            });
@@ -62,6 +64,7 @@ class Tournament {
 
   /**
    * Get list of incoming tournaments
+   * @returns {Promise<String>}
    */
   getNextTournaments(){
     return new Promise((resolve,reject)=>{
@@ -78,8 +81,20 @@ class Tournament {
 
   /**
    * Get list of finished tournaments
+   * @returns {Promise<String>}
    */
-
+  getFinishedTournaments(){
+    return new Promise((resolve,reject)=>{
+      database()
+      .then((db)=>{
+        db.collection(constants.TOURNAMENTS_COLLECTION)
+        .find({completed : true}).toArray((error, results)=>{
+          console.log(results)
+          resolve(results)
+        })
+      })
+    })    
+  }
 
   /**
    * Find a tournament.
@@ -133,24 +148,28 @@ class Tournament {
     });
   }
 
-
-   /**
-    * Add player in a tournament.
-    * @param playersId: The players id.
-    * @returns {Promise<unknown>}
-    */
-   addUsers(playersId) {
+  /**
+  * Add player in a tournament.
+  * @param nickName: The players nickname.
+  * @param tournamentId: the Id of the tournament
+  * @returns {Promise<unknown>}
+  */
+   addUsers(nickName, tournamentId) {
       return new Promise((resolve, reject) => {
+        
          const filterObj = {};
-         filterObj._id = this._tournamentID;
+         filterObj._id = new mongodb.ObjectID(tournamentId);
+
          const setObj = {};
-         setObj[constants.TOURNAMENT_PLAYERS] = {id: playersId, rank: 0};
+         setObj[constants.TOURNAMENT_PLAYERS] = {nickName, rank: 0};
+         console.log(setObj)
+
          const setFinalObj = {};
          setFinalObj[constants.PUSH_OPERATOR] = setObj;
          
          database().then(db => {
-            db.collection(constants.TOURNAMENTS_COLLECTION).update(filterObj, setFinalObj).then(_resultSet => {
-               console.log(_resultSet);
+            db.collection(constants.TOURNAMENTS_COLLECTION).updateOne(filterObj, setFinalObj).then(_resultSet => {
+              resolve(_resultSet);
             });
          }).catch(err => {
             console.error(err);

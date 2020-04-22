@@ -58,9 +58,9 @@ constants.TOURNAMENT_LOCALIZATION = "localization";
 constants.TOURNAMENT_PLAYERS_MAXIMUM = "playersMaximumNumber";
 constants.TOURNAMENT_BUY_IN = "buyIn";
 constants.TOURNAMENT_DESCRIPTION = "description";
-constants.TOURNAMENT_PLAYERS = "players";
+constants.TOURNAMENT_PLAYERS = "playersRegistered";
 constants.TOURNAMENT_COMPLETED = "completed";
-constants.TOURNAMENT_ID = "tournament_id";
+constants.TOURNAMENT_ID = "tournamentId";
 constants.TOURNAMENT_REBUY = "rebuy";
 constants.TOURNAMENT_LEVEL_DURATION = "level_duration";
 

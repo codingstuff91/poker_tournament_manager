@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <Navbar />
+
     <h1>Détails et inscription</h1>
     <div class="row">
       <div class="col s12">
@@ -19,9 +20,11 @@
         <h2><span class="title">Durée des niveaux : </span>{{ levelDuration }} minutes</h2>
         <h2><span class="title">Description complémentaire : </span>{{ description }}</h2>
       </div>
+
       <div id="inscription" class="col s12">
-        <a class="waves-effect waves-light btn" @click="tournamentRegister" style="margin-top : 20px;"><i class="material-icons left">person_add</i>Vous inscrire au tournoi</a>
-        <h2>Joueurs inscrits :</h2>
+        <a class="waves-effect waves-light btn green darken-2" v-if="!alreadyRegistered" @click="tournamentRegister(nickName)" style="margin-top : 20px;"><i class="material-icons left">person_add</i>Vous inscrire au tournoi</a>
+        <a class="waves-effect waves-light btn red darken-1" v-else @click="tournamentUnregister(nickName)" style="margin-top : 20px;"><i class="material-icons left">remove_circle</i>Se désinscrire</a>
+        <h2 class="title">{{ numberPlayersRegistered }} Joueurs inscrits :</h2>
         <ul v-for="player in playersRegistered" :key="player.nickName">
           <li>{{ player.nickName }}</li>
         </ul>
@@ -33,7 +36,9 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import axios from 'axios';
-const url = "http://localhost:5000/tournament/";
+import Swal from 'sweetalert2';
+
+const serverUrl = "http://localhost:5000/tournament";
 
 export default {
   name: 'Tournament',
@@ -42,6 +47,8 @@ export default {
   },
   data() {
       return{
+        nickName : '',
+        tournamentId : '',
         creator : '',
         dateTime : '',
         localization : '',
@@ -51,14 +58,16 @@ export default {
         rebuy : '',
         playersMaximumNumber : '',
         playersRegistered : [],
-        numberPlayersRegistered : ''
+        numberPlayersRegistered : 0,
+        alreadyRegistered : false
       }
   },
   methods : {
+    //Display the tournament details
     async getTournamentDetails() {
       const tournament_id = this.$route.params.id;
 
-      await axios.get(url + tournament_id).then((response)=>{
+      await axios.get(serverUrl + "/" + tournament_id).then((response)=>{
           this.creator = response.data.res.creator,
           this.dateTime = response.data.res.dateTime,
           this.localization = response.data.res.localization,
@@ -68,25 +77,75 @@ export default {
           this.rebuy = response.data.res.rebuy,
           this.playersMaximumNumber = response.data.res.playersMaximumNumber
 
-          response.data.res.playersRegistered.forEach(element => {
-            this.playersRegistered.push(JSON.parse(element))
+          this.playersRegistered = response.data.res.playersRegistered
+
+          this.playersRegistered.forEach(player => {
+            this.numberPlayersRegistered ++;
           });
       });
     },
-    tournamentRegister() {
-      alert('click')
+    // Register a player to the tournament
+    tournamentRegister(nickName) {
+      axios.put(serverUrl,{
+        nickName : this.nickName,
+        tournamentId : this.tournamentId
+      }).then((response)=>{
+        
+        this.numberPlayersRegistered = 0;
+
+        this.getTournamentDetails();
+        
+        this.alreadyRegistered = true;
+
+        Swal.fire({
+          title: 'Succes',
+          text: 'Vous etes maintenant inscrit',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        })
+      })
+    },
+    // Unregsiter a player of the tournament
+    tournamentUnregister(nickName) {
+      alert(nickName)
+    },
+    // Check if the user is already registered for switching the call to action button
+    checkUserRegistration(nickName) {
+      const searchUserRegistration = this.playersRegistered.filter((player)=>{
+        return player.nickName == nickName
+      })
+
+      this.alreadyRegistered = searchUserRegistration.length != 0 ? true : false;
     }
   },
-  created() {
-    this.getTournamentDetails();
-  },
-  mounted() {
+  async mounted() {
+    // Get the tournament Id
+    this.tournamentId = this.$route.params.id
+
     //initialization of the materialize tab component
     const options = {
       duration : 400
     }
     const el = document.querySelector('.tabs');
     var instance = M.Tabs.init(el, options);
+
+    //get the current user 
+    const token = localStorage.getItem('token');
+		const fetchUserUrl = "http://localhost:5000/user";
+
+		if(token !== null) {
+
+			axios.get(fetchUserUrl, {
+				headers : {
+					'Authorization' : 'Bearer ' + token
+				}
+			}).then((response)=>{
+				this.nickName = response.data.nickName
+			})
+    }
+    // Call other methods
+    await this.getTournamentDetails();
+    await this.checkUserRegistration(this.nickName);
   }
 }
 </script>
