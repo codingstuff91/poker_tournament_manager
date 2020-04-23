@@ -31,12 +31,11 @@ constants.HTTP_UNAUTHORIZED_CODE = 401;
 constants.RESPONSE_HEADER_KEY = "Content-Type";
 constants.RESPONSE_HEADER_VALUE = "application/json";
 
-
 /**
  * DB Constants
  */
 constants.PUSH_OPERATOR = "$push";
-
+constants.PULL_OPERATOR = "$pull";
 
 /**
  * DB User Constants

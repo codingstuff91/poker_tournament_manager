@@ -105,9 +105,25 @@ export default {
         })
       })
     },
-    // Unregsiter a player of the tournament
-    tournamentUnregister(nickName) {
-      alert(nickName)
+    // Unregister a player of the tournament
+    tournamentUnregister(nickName, tournamentId) {
+      axios.put(`${serverUrl}/${this.tournamentId}/${nickName}`,{
+        tournamentId : this.tournamentId
+      }).then((response)=>{
+
+        this.numberPlayersRegistered = 0;
+
+        this.getTournamentDetails();
+        
+        this.alreadyRegistered = false;
+
+        Swal.fire({
+          title: 'Succes',
+          text: 'Votre inscription a été supprimée',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        })        
+      })
     },
     // Check if the user is already registered for switching the call to action button
     checkUserRegistration(nickName) {

@@ -81,6 +81,28 @@ router.put('/tournament', async (req, res) => {
 });
 
 /**
+ * Unregister a player of a tournament
+ */
+router.put('/tournament/:tournamentId/:nickName', (req,res)=>{
+  const tournamentId = req.params.tournamentId;
+  const nickName = req.params.nickName;
+  
+  if(tournamentId && nickName) {
+    const tournament = new Tournament();
+  
+    tournament.removeUser(nickName,tournamentId).then(()=>{
+      res.status(constants.HTTP_SUCCESS).json(responseGenerator.generateResponse(true));
+    })
+    .catch((error)=>{
+      res.status(constants.BAD_REQUEST_CODE).json(responseGenerator.generateResponse(constants.INSUFFICIENT_DATA_MESSAGE));
+    })
+
+  }else {
+    res.status(constants.BAD_REQUEST_CODE).json(responseGenerator.generateResponse(constants.INSUFFICIENT_DATA_MESSAGE));
+  }
+})
+
+/**
  * Edit a tournament
  */
 router.patch("/tournament", auth, async (req, res) => {

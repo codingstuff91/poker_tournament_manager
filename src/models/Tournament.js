@@ -177,6 +177,37 @@ class Tournament {
          });
       });
    }
+
+  /**
+  * Delete a player in a tournament
+  * @param nickName : The player's nickname
+  * @param tournamentId : the Id of the tournament
+  */
+  removeUser(nickName,tournamentId) {
+    return new Promise((resolve, reject)=>{
+      const filterObj = {}
+      filterObj._id = new mongodb.ObjectID(tournamentId);
+
+      const setObj = {}
+      setObj[constants.TOURNAMENT_PLAYERS] = {nickName};
+      console.log(setObj);
+
+      const setFinalObj = {}
+      setFinalObj[constants.PULL_OPERATOR] = setObj;
+      console.log(setFinalObj);
+
+      database().then(db =>{
+        db.collection(constants.TOURNAMENTS_COLLECTION).updateOne(filterObj,setFinalObj)
+        .then((_resultSet)=>{
+          resolve('user deleted !')
+        })
+      }).catch((error)=>{
+        console.log(error);
+        reject(error);
+      })
+
+    });
+  }
 }
 
 /**
