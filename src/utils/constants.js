@@ -36,6 +36,8 @@ constants.RESPONSE_HEADER_VALUE = "application/json";
  */
 constants.PUSH_OPERATOR = "$push";
 constants.PULL_OPERATOR = "$pull";
+constants.SET_OPERATOR = "$set";
+constants.SORT_OPERATOR = "$sort";
 
 /**
  * DB User Constants
@@ -46,6 +48,7 @@ constants.USERS_EMAIL = "email";
 constants.USERS_FIRST_NAME = "firstName";
 constants.USERS_NICK_NAME = "nickName";
 constants.USERS_PASSWORD = "password";
+constants.USERS_RANK = "rank";
 
 /**
  * DB Tournament Constants
@@ -58,6 +61,7 @@ constants.TOURNAMENT_PLAYERS_MAXIMUM = "playersMaximumNumber";
 constants.TOURNAMENT_BUY_IN = "buyIn";
 constants.TOURNAMENT_DESCRIPTION = "description";
 constants.TOURNAMENT_PLAYERS = "playersRegistered";
+constants.TOURNAMENT_ELIMINATED_PLAYERS = "eliminatedPlayers";
 constants.TOURNAMENT_COMPLETED = "completed";
 constants.TOURNAMENT_ID = "tournamentId";
 constants.TOURNAMENT_REBUY = "rebuy";

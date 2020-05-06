@@ -103,6 +103,26 @@ router.put('/tournament/:tournamentId/:nickName', (req,res)=>{
 })
 
 /**
+ * Eliminate a player of a tournament
+ */
+router.patch('/tournament/:tournamentId/:nickName', (req,res)=>{
+
+  const tournamentId = req.params.tournamentId;
+  const nickName = req.params.nickName;
+  const rank = req.body[constants.USERS_RANK];
+
+  console.log("données envoyées",tournamentId, nickName, rank);
+
+  const tournament = new Tournament();
+  tournament.eliminatePlayer(tournamentId, nickName, rank).then(()=>{
+    res.status(constants.HTTP_SUCCESS).json(responseGenerator.generateResponse(true));
+  })
+  .catch(()=>{
+    res.status(constants.BAD_REQUEST_CODE).json(responseGenerator.generateResponse(constants.INSUFFICIENT_DATA_MESSAGE));
+  })
+})
+
+/**
  * Edit a tournament
  */
 router.patch("/tournament", auth, async (req, res) => {

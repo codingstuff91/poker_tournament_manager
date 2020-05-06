@@ -199,7 +199,7 @@ class Tournament {
       database().then(db =>{
         db.collection(constants.TOURNAMENTS_COLLECTION).updateOne(filterObj,setFinalObj)
         .then((_resultSet)=>{
-          resolve('user deleted !')
+          resolve('User Deleted !')
         })
       }).catch((error)=>{
         console.log(error);
@@ -207,6 +207,38 @@ class Tournament {
       })
 
     });
+  }
+
+  /**
+   * Eliminate a player of the tournament
+   * @param tournamentId : The Id of the tournament
+   * @param nickName : The player's nickname
+   * @param rank : The rank of the player in the tournament
+   */
+  eliminatePlayer(tournamentId, nickName, rank) {
+    return new Promise((resolve, reject) => {
+        
+      const filterObj = {};
+      filterObj._id = new mongodb.ObjectID(tournamentId);
+      console.log("Filter object",filterObj);
+      
+      const setObj = {};
+      setObj[constants.TOURNAMENT_ELIMINATED_PLAYERS] = {nickName, rank}
+      console.log("Setting new object",setObj);
+
+      const setFinalObj = {};
+      setFinalObj[constants.PUSH_OPERATOR] = setObj;
+      console.log("Final object",setFinalObj);
+
+      database().then(db => {
+         db.collection(constants.TOURNAMENTS_COLLECTION).updateOne(filterObj, setFinalObj).then(_resultSet => {
+           resolve(_resultSet);
+         });
+      }).catch(err => {
+         console.error(err);
+         reject(err);
+      });
+   });
   }
 }
 

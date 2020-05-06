@@ -23,10 +23,15 @@
 
       <div id="inscription" class="col s12">
         <a class="waves-effect waves-light btn green darken-2" v-if="!alreadyRegistered" @click="tournamentRegister(nickName)" style="margin-top : 20px;"><i class="material-icons left">person_add</i>Vous inscrire au tournoi</a>
-        <a class="waves-effect waves-light btn red darken-1" v-else @click="tournamentUnregister(nickName)" style="margin-top : 20px;"><i class="material-icons left">remove_circle</i>Se désinscrire</a>
+        <a class="waves-effect waves-light btn red darken-1" v-else @click="tournamentUnregister()" style="margin-top : 20px;"><i class="material-icons left">remove_circle</i>Se désinscrire</a>
         <h2 class="title">{{ numberPlayersRegistered }} Joueurs inscrits :</h2>
         <ul v-for="player in playersRegistered" :key="player.nickName">
-          <li>{{ player.nickName }}</li>
+          <li>{{ player.nickName }} <a class="btn-floating btn-small waves-effect waves-light red" @click="eliminatePlayer(player.nickName)" v-if="nickName == creator"><i class="material-icons">highlight_off</i></a></li>
+        </ul>
+        <hr>
+        <h2 class="title">Classement :</h2>
+        <ul v-for="player in playersEliminated" :key="player.nickName">
+          <li>{{ player.nickName }} | {{ player.rank }}{{ player.rank == 1 ? 'er' : 'ème'}} </li>
         </ul>
       </div>
     </div>
@@ -58,7 +63,15 @@ export default {
         rebuy : '',
         playersMaximumNumber : '',
         playersRegistered : [],
+        playersEliminated : [{
+          nickName : "Mattou",
+          rank : 2
+        },{
+          nickName : "Mickariver",
+          rank : 1
+        }],
         numberPlayersRegistered : 0,
+        numberRemainingPlayers : 0,
         alreadyRegistered : false
       }
   },
@@ -81,6 +94,7 @@ export default {
 
           this.playersRegistered.forEach(player => {
             this.numberPlayersRegistered ++;
+            this.numberRemainingPlayers ++;
           });
       });
     },
@@ -106,8 +120,8 @@ export default {
       })
     },
     // Unregister a player of the tournament
-    tournamentUnregister(nickName, tournamentId) {
-      axios.put(`${serverUrl}/${this.tournamentId}/${nickName}`,{
+    tournamentUnregister() {
+      axios.put(`${serverUrl}/${this.tournamentId}/${this.nickName}`,{
         tournamentId : this.tournamentId
       }).then((response)=>{
 
@@ -132,6 +146,17 @@ export default {
       })
 
       this.alreadyRegistered = searchUserRegistration.length != 0 ? true : false;
+    },
+    // Eliminate a player
+    eliminatePlayer(nickName) {
+      const rank = this.numberRemainingPlayers;
+
+      axios.patch(`${serverUrl}/${this.tournamentId}/${nickName}`,{rank : rank}).then((response)=>{
+          this.numberRemainingPlayers --
+          console.log(response.data)
+      }).catch((error)=>{
+        console.log(error)
+      })
     }
   },
   async mounted() {
@@ -173,6 +198,14 @@ h2{
   color: #42970a;
   font-style: oblique;
   font-weight: bold;
+}
+.btn-floating{
+  margin-left: 50px;
+}
+hr{
+  width : 40%;
+  margin-left : auto;
+  border : 1px solid #42970a;
 }
 
 </style>
