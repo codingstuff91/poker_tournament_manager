@@ -7,7 +7,7 @@
       <div class="col s12">
         <ul class="tabs">
           <li class="tab col s6"><a class="active" href="#details">DETAILS DU TOURNOI</a></li>
-          <li class="tab col s6"><a href="#inscription">JOUEURS INSCRITS</a></li>
+          <li class="tab col s6"><a href="#inscription">INSCRIPTIONS</a></li>
         </ul>
       </div>
       <div id="details" class="col s12">
@@ -63,13 +63,7 @@ export default {
         rebuy : '',
         playersMaximumNumber : '',
         playersRegistered : [],
-        playersEliminated : [{
-          nickName : "Mattou",
-          rank : 2
-        },{
-          nickName : "Mickariver",
-          rank : 1
-        }],
+        playersEliminated : [],
         numberPlayersRegistered : 0,
         numberRemainingPlayers : 0,
         alreadyRegistered : false
@@ -89,8 +83,8 @@ export default {
           this.buyIn = response.data.res.buyIn,
           this.rebuy = response.data.res.rebuy,
           this.playersMaximumNumber = response.data.res.playersMaximumNumber
-
           this.playersRegistered = response.data.res.playersRegistered
+          this.playersEliminated = response.data.res.eliminatedPlayers
 
           this.playersRegistered.forEach(player => {
             this.numberPlayersRegistered ++;

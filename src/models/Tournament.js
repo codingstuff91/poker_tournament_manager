@@ -161,7 +161,7 @@ class Tournament {
          filterObj._id = new mongodb.ObjectID(tournamentId);
 
          const setObj = {};
-         setObj[constants.TOURNAMENT_PLAYERS] = {nickName, rank: 0};
+         setObj[constants.TOURNAMENT_PLAYERS] = {nickName};
          console.log(setObj)
 
          const setFinalObj = {};
@@ -218,22 +218,35 @@ class Tournament {
   eliminatePlayer(tournamentId, nickName, rank) {
     return new Promise((resolve, reject) => {
         
-      const filterObj = {};
+      const filterObj = {}
       filterObj._id = new mongodb.ObjectID(tournamentId);
-      console.log("Filter object",filterObj);
+      console.log("Filter object",filterObj)
       
       const setObj = {};
       setObj[constants.TOURNAMENT_ELIMINATED_PLAYERS] = {nickName, rank}
-      console.log("Setting new object",setObj);
+      console.log("Setting new object",setObj)
 
-      const setFinalObj = {};
-      setFinalObj[constants.PUSH_OPERATOR] = setObj;
-      console.log("Final object",setFinalObj);
+      const setEliminatedPlayersObj = {}
+      setEliminatedPlayersObj[constants.PUSH_OPERATOR] = setObj
+      console.log("Setting Eliminated players object",setEliminatedPlayersObj)
+
+      const setObj2 = {}
+      setObj2[constants.TOURNAMENT_PLAYERS] = { nickName }
+      console.log("setting new object 2",setObj2)
+
+      const deleteEliminatedPlayerObj = {}
+      deleteEliminatedPlayerObj[constants.PULL_OPERATOR] = setObj2
+      console.log("Setting DELETED players object",deleteEliminatedPlayerObj)
+
+      const finalObj = {}
+      finalObj[constants.PUSH_OPERATOR] = setObj
+      finalObj[constants.PULL_OPERATOR] = setObj2
+      console.log("Final obj",finalObj)
 
       database().then(db => {
-         db.collection(constants.TOURNAMENTS_COLLECTION).updateOne(filterObj, setFinalObj).then(_resultSet => {
-           resolve(_resultSet);
-         });
+         db.collection(constants.TOURNAMENTS_COLLECTION).updateOne(filterObj, setEliminatedPlayersObj).then(_resultSet => {
+          resolve(_resultSet);
+         });       
       }).catch(err => {
          console.error(err);
          reject(err);
